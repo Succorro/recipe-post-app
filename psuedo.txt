@@ -1,0 +1,107 @@
+Set Rails and configure gems:  
+
+
+Create models for Recipe sharing app 
+  - Users: Username, Password_digest, Profile Information:Text 
+
+  - Recipes: Title, Description:text ,  instructions:text, Cooking Time:integer, Difficulty, Image, UserId:foreignkey , likes:integer
+
+  - UserRecipes: userId:foreignKey, recipeId:foreignKey 
+
+  - Ingredients: name, 
+
+  - RecipeIngredients: RecipeID:foreignKey, ingredientsID:foreignKey, Quantity
+
+  - Categories: Name 
+
+  - RecipeCategories: RecipeID:foreignKey, categoryID:foreignID
+
+  - Comments: comment:text, likes:integer 
+
+Routing and Validations
+  AppController Active Record rescue: 
+    rescue_from  ::ActiveRecord::RecordNotFound do |exception| 
+        render json: {error: "#{exception.message}"}, status: :not_found
+    end
+
+    rescue_from ::ActiveRecord::RecordInvalid do |exception| 
+        render json: {errors: "#{exception.message}"}, status: :unprocessable_entity
+    end
+
+  Necessary Routes: 
+    - Users: Create, Read, Update, Destroy
+    - Session: Create, Destroy 
+    - Recipes: Create, Read, Update, Destroy 
+    - Ingredients: Create
+    - RecipeIngredients: Create, Update, Destroy
+    - Categories: Read
+    - Comments: Create, Update
+
+  Validations: 
+    - Users: :username-uniqueness: {message: ""}-presence, :password-has_secure_password, :profile_information-presence
+    - Recipes: :title-presence  :description-length: { minimum: 50 } :instructions-length: { minimum: 50 } :cooking_time-presence :difficulty-presence :image-presence  
+    - Ingredients: :name presence:true 
+    - RecipeIngredients: :quantity presence:true 
+    - Comments: :comment presence true 
+Authentication and Cookies
+  User_authorization: before_action authorization ... unless session.include? :user_id
+
+
+
+Relationships and associations 
+    One-to-Many Relationship (Users to Recipes)
+    Many-to-Many Relationship (Recipes to Ingredients)
+    Many-to-Many Relationship (Recipes to Categories)
+    One-to-Many Relationship (Recipe to Comments)
+
+Serializations 
+  Attributes 
+    - Users: :id, :username, :profile_information  
+    - Recipe: :id, :title, :description, :instructions, :difficulty, :cooking_time, :image, :likes, has_one:user , has_many:recipe_ingredients, has_many:comments
+    - Categories: :id, :name, has_many:recipes
+
+
+Set React and frontend:
+
+Components 
+  - login 
+  - logout 
+  - signup 
+  - RecipeList 
+  - RecipeCard 
+  - navBar 
+  - searchRecipes
+  - Edit Recipe 
+  - CommentsList 
+  - CommentsCard 
+  - CommentsForm 
+  
+
+Pages 
+  - Home 
+  - Profile 
+  - Recipes 
+  - RecipeForm 
+
+
+
+CSS
+  - Bootstrap? 
+  - Tailwind? 
+  - Pico? 
+  - Vanilla? 
+
+Fetch Requests and State  
+  Make sure the Requests match Routes: 
+    - /me 
+    - /signup 
+    - /login
+    - /logout 
+    - /recipeform 
+    - / 
+    - /profile/:id 
+    - /recipes 
+    - /commentform 
+    - /categories
+
+
