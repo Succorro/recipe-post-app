@@ -8,10 +8,6 @@ Create models for Recipe sharing app
 
   - UserRecipes: userId:foreignKey, recipeId:foreignKey 
 
-  - Ingredients: name, 
-
-  - RecipeIngredients: RecipeID:foreignKey, ingredientsID:foreignKey, Quantity
-
   - Categories: Name 
 
   - RecipeCategories: RecipeID:foreignKey, categoryID:foreignID
